@@ -1,0 +1,69 @@
+package NOTAS_ESTUDIANTES;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+// Clase Notas que maneja la lógica de las notas
+public class Notas {
+    private double sumaTotal;
+    private int cantidadNotas;
+    private final List<Double> notas = new ArrayList<>();
+
+    // Método para ingresar notas
+    public void ingresarNotas() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("¿Cuántas notas desea calcular? : ");
+        cantidadNotas = sc.nextInt();
+
+        for (int D = 1; D <= cantidadNotas; D++) {
+            System.out.println("Ingresa la nota " + D + ":");
+            double nota = sc.nextDouble();
+            ingresarNota(nota);
+        }
+
+        sc.close();
+    }
+
+    // Método para agregar una nota y actualizar la suma total y la cantidad de notas
+    private void ingresarNota(double nota) {
+        sumaTotal += nota;
+        notas.add(nota);
+    }
+
+    // Método para calcular la suma de las notas
+    private double calcularSuma() {
+        return sumaTotal;
+    }
+
+    // Método para calcular el promedio de las notas
+    private double calcularPromedio() {
+        if (notas.isEmpty()) {
+            return 0.0;
+        }
+        return sumaTotal / notas.size();
+    }
+
+    // Método para mostrar los resultados de las notas ingresadas
+    public void mostrarResultados() {
+        double suma = calcularSuma();
+        double promedio = calcularPromedio();
+
+        System.out.println("El total de las notas es: " + suma);
+        System.out.println("El promedio de las notas es: " + promedio);
+
+        for (double nota : notas) {
+            if (nota < promedio) {
+                System.out.println("La nota " + nota + " está por debajo del promedio.");
+            } else {
+                System.out.println("La nota " + nota + " está por encima del promedio.");
+            }
+        }
+    }
+
+    // Método para obtener las notas
+    public List<Double> getNotas() {
+        return notas;
+    }
+}
